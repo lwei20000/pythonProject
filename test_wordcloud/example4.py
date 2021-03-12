@@ -12,4 +12,4 @@ string = "".join(txtlist)
 
 w.generate(string)
 
-w.to_file('output4-tongji.png')
+w.to_file('output/output4-tongji.png')

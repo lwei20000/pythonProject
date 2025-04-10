@@ -31,8 +31,8 @@ import pdb
 #    return acc, y_predprob
 
 
+###随机森林算法 - random forest
 def RandomForestClassify(train_x, train_y, test_x, test_y):
-    ####random forest
     '''
     param_grid = { 
         'n_estimators': [100, 200, 500],
@@ -60,8 +60,8 @@ def RandomForestClassify(train_x, train_y, test_x, test_y):
     print("%s n_estimators = %d, random forest accuracy:%f" % (datetime.now(), 200, acc))
     return acc, y_predprob, clf_RDF
 
+###Adaboost算法 - adaboost, svm
 def Adaboost(train_x, train_y, test_x, test_y):
-    ###adaboost, svm
     '''
     params_grid = {'n_estimators': [50, 100,
         "learning_rate": [0.01, 0.025, 0.05, 0.075, 0.1, 0.15, 0.2],
@@ -81,9 +81,8 @@ def Adaboost(train_x, train_y, test_x, test_y):
     print("%s n_estimators = %d, random forest accuracy:%f" % (datetime.now(), 200, acc))
     return acc, y_predprob, clf_adaboost
     
-
+# GBDT（梯度提升树）算法
 def gbdt(train_x, train_y, test_x, test_y):
-    ########gbdt
     '''
     param_grid = {
         "loss":["deviance"],
@@ -120,6 +119,7 @@ def gbdt(train_x, train_y, test_x, test_y):
     print("%s n_estimators = %s, random forest accuracy:%f" % (datetime.now(), "GBDT",  acc))
     return acc, y_predprob, clf_gbdt
 
+#融合mean - 对分数取均值
 def ensemble_mean(prob_RDF, prob_ada, prob_gbdt, test_y):
     mean_prob = (prob_RDF + prob_ada + prob_gbdt)/3
     y_pred = np.argmax(mean_prob, axis=1)
@@ -127,6 +127,7 @@ def ensemble_mean(prob_RDF, prob_ada, prob_gbdt, test_y):
     print("ensemble mean result is:%f" % (acc))
     return acc, y_pred
 
+#融合vote - 加权投票的方法
 def ensemble_vote(clf_RDF, clf_adaboost, clf_gbdt, train_x, train_y, test_x, test_y):
 
     voting_est = ensemble.VotingClassifier(estimators = [('rf', clf_RDF), \
@@ -157,7 +158,7 @@ def draw_org(x_train):
     plt.close()
 
 def draw_result(pred_y, test_y):
-    #https://www.kaggle.com/gauravduttakiit/digit-recognizer-using-gradientboostingclassifier
+    # https://www.kaggle.com/gauravduttakiit/digit-recognizer-using-gradientboostingclassifier
     cm = metrics.confusion_matrix(test_y, pred_y)
     plt.figure(figsize=(9,9))
     plt.imshow(cm,cmap='rainbow_r')
@@ -200,4 +201,3 @@ if __name__=="__main__":
     draw_result(pred_y, test_y)
     EndTime = time.clock()
     print('Total time %.2f s' % (EndTime - StartTime))
- 

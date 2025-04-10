@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MySQL 数据迁移工具</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        #status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+        .error {
+            background-color: #f2dede;
+            color: #a94442;
+        }
+        #logContainer {
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: white;
+        }
+        .log-entry {
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 15px 0;
+        }
+        .stat-box {
+            background-color: white;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+            flex: 1;
+            margin: 0 5px;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MySQL 数据迁移工具</h1>
+        <p>点击下方按钮开始从源数据库迁移数据到目标数据库</p>
+
+        <button id="migrateBtn">开始迁移</button>
+
+        <div id="status"></div>
+
+        <div class="stats">
+            <div class="stat-box">
+                <div>获取记录数</div>
+                <div class="stat-value" id="fetched">0</div>
+            </div>
+            <div class="stat-box">
+                <div>插入记录数</div>
+                <div class="stat-value" id="inserted">0</div>
+            </div>
+            <div class="stat-box">
+                <div>更新记录数</div>
+                <div class="stat-value" id="updated">0</div>
+            </div>
+        </div>
+
+        <h3>操作日志</h3>
+        <div id="logContainer"></div>
+    </div>
+
+    <script>
+        document.getElementById('migrateBtn').addEventListener('click', function() {
+            const btn = this;
+            const statusDiv = document.getElementById('status');
+            const logContainer = document.getElementById('logContainer');
+
+            btn.disabled = true;
+            statusDiv.innerHTML = '迁移进行中，请稍候...';
+            statusDiv.className = '';
+            logContainer.innerHTML = '';
+
+            // 重置统计数字
+            document.getElementById('fetched').textContent = '0';
+            document.getElementById('inserted').textContent = '0';
+            document.getElementById('updated').textContent = '0';
+
+            fetch('/migrate_course_scores', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    statusDiv.innerHTML = '迁移成功完成！';
+                    statusDiv.className = 'success';
+                } else {
+                    statusDiv.innerHTML = '迁移过程中发生错误';
+                    statusDiv.className = 'error';
+                }
+
+                // 更新统计数字
+                document.getElementById('fetched').textContent = data.rows_fetched || '0';
+                document.getElementById('inserted').textContent = data.rows_inserted || '0';
+                document.getElementById('updated').textContent = data.rows_updated || '0';
+
+                // 显示日志
+                if (data.logs && data.logs.length) {
+                    data.logs.forEach(log => {
+                        const logEntry = document.createElement('div');
+                        logEntry.className = 'log-entry';
+                        logEntry.textContent = log;
+                        logContainer.appendChild(logEntry);
+                    });
+                }
+            })
+            .catch(error => {
+                statusDiv.innerHTML = '请求失败: ' + error.message;
+                statusDiv.className = 'error';
+
+                const logEntry = document.createElement('div');
+                logEntry.className = 'log-entry';
+                logEntry.textContent = '请求失败: ' + error.message;
+                logContainer.appendChild(logEntry);
+            })
+            .finally(() => {
+                btn.disabled = false;
+            });
+        });
+    </script>
+</body>
+</html>

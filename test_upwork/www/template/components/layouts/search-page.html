@@ -1,0 +1,35 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div id="sign-in" class="p-strip">
+    
+   <div class="row">
+    <div>
+        <h2>Search Results for "{{ query }}"</h2>
+        {% if error %}
+            <p>{{ error }}</p>
+        {% elif code_results %}
+           
+                {% for result in code_results %}
+                   
+                        <h4>{{ result.repository.full_name }}</h4>
+                        <p><strong>File:</strong> {{ result.name }}</p>
+                        <p><strong>Path:</strong> {{ result.path }}</p>
+                        <a href="{{ result.html_url }}" target="_blank">View File on GitHub</a>
+                   
+                {% endfor %}
+       
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </div>
+   </div>
+ </div>
+{% endblock %}
+
+
+
+
+
+
+

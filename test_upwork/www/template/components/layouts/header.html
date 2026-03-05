@@ -1,0 +1,62 @@
+<header id="navigation" class="p-navigation is-dark">
+    <div class="p-navigation__row--25-75">
+       <div class="p-navigation__banner">
+          <div class="p-navigation__tagged-logo">
+             <a class="p-navigation__link" href="/">
+                <div class="p-navigation__logo-tag">
+                   <img class="p-navigation__logo-icon" src="{{ url_for('static', filename='img/quantiota-white-icon.svg') }}" alt="Quantiota"> 
+                </div>
+                <span class="p-navigation__logo-title">Quantiota</span>
+             </a>
+          </div>
+          <ul class="p-navigation__items">
+             <li class="p-navigation__item">
+                <button class="js-search-button p-navigation__link--search-toggle">
+                <span class="p-navigation__search-label">Search</span>
+                </button>
+             </li>
+             <li class="p-navigation__item">
+                <button class="js-menu-button p-navigation__link">Menu</button>
+             </li>
+          </ul>
+       </div>
+       <nav class="p-navigation__nav" aria-label="Main">
+          <ul class="p-navigation__items">
+             <li class="p-navigation__item "><a class="p-navigation__link" href="{{ url_for('index') }}#features">Features</a></li>
+             <li class="p-navigation__item "><a class="p-navigation__link" href="{{ url_for('index') }}#pricing">Pricing</a></li>
+             <li class="p-navigation__item "><a class="p-navigation__link" href="{{ url_for('contact') }}">Demo</a></li>
+             <li class="p-navigation__item "><a class="p-navigation__link" href="https://blog.quantiota.ai">Blog</a></li>
+             <li class="p-navigation__item"><a class="p-navigation__link" href="{{ url_for('signin') }}">Sign in </a></li>
+
+             <li class="p-navigation__item p-navigation__item--right">
+                <button id="theme-toggle" class="theme-toggle-btn p-navigation__link">
+                   <span style="display: inline-flex; align-items: center;">
+                   <img src="{{ url_for('static', filename='img/sun-02-stroke-standard-white.svg') }}" alt="Light mode icon" class="theme-toggle-icon light-icon" width="24" height="24">
+                   <img src="{{ url_for('static', filename='img/moon-02-stroke-standard-white.svg') }}" alt="Dark mode icon" class="theme-toggle-icon dark-icon" width="24" height="24" style="display: none;">
+                </span>
+                </button>
+             </li>
+          </ul>
+
+          <ul class="p-navigation__items">
+             <li class="p-navigation__item">
+                <button class="js-search-button p-navigation__link--search-toggle">
+                <span class="p-navigation__search-label">Search</span>
+                </button>
+             </li>
+          </ul>
+          <div class="p-navigation__search">
+             <form class="p-search-box is-light" action="/search">
+                <input type="search" id="search-docs" class="p-search-box__input" name="q" placeholder="Search the Quantiota repos"
+                   title="Search the repositories" autocomplete="on" aria-label="Search the Quantiota repos" required>
+                <button type="reset" id="search-docs-reset" class="p-search-box__reset u-no-margin--right" name="close"><i
+                   class="p-icon--close">Clear input</i></button>
+                <button type="submit" class="p-search-box__button" name="submit"><i
+                   class="p-icon--search">Submit</i></button>
+             </form>
+          </div>
+       </nav>
+    </div>
+    <div class="p-navigation__search-overlay"></div>
+
+ </header>

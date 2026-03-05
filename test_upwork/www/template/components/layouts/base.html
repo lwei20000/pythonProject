@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+   <head><!-- Google tag (gtag.js) -->
+<!-- Google tag (gtag.js) -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GT-T5RL472R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'GT-T5RL472R');
+</script>
+
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>Quantiota</title>
+      <link rel="quantiota" href="https://www.quantiota.ai/">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <link rel="icon" type="image/png" sizes="48x48" href="{{ url_for('static', filename='img/quantiota-white-icon.svg') }}">
+      <!-- Serving favicon for search engines locally -->
+      <link rel="icon" type="image/png" sizes="48x48" href="{{ url_for('static', filename='img/quantiota_favicon_48px.png') }}">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="application-name" content="Quantiota">
+      <!-- Add to homescreen for Safari on iOS -->
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+      <meta name="apple-mobile-web-app-title" content="Quantiota">
+      <meta name="description"
+         content="AI Agent Lab- a modular, Docker-based environment designed for experimenting with GPT-3.5 language models.">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+      
+      <script src="{{ url_for('static', filename='js/703e23c9-lazysizes-noscript-native-loading.5.1.2.min.js')}}" defer></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+      <script src="{{ url_for('static', filename='js/chatbot.js')}}" defer></script>
+   </head>
+   <body>
+        <main>
+            {% include 'layouts/header.html' %}
+
+            {% block content %}
+            <!-- Child template content will be rendered here -->
+            {% endblock %}
+         </main>
+            {% include 'layouts/footer.html' %}
+     
+        <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+        <script defer src="{{ url_for('static', filename='js/buttons.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/scripts.js')}}"></script>
+   
+        <script src="/static/js/chatbot.js"></script>
+      </body>
+
+
+      <script>
+        // IP Detection Function
+        function getIp(callback) {
+          fetch('https://ipinfo.io/json?token=45c3f864280ba7', {
+            headers: { 'Accept': 'application/json' },
+            timeout: 5000
+          })
+            .then(resp => {
+              if (!resp.ok) throw new Error('IP lookup failed');
+              return resp.json();
+            })
+            .catch(error => {
+              console.warn('IP detection failed:', error);
+              return { country: 'us' }; // Default to US in case of failure
+            })
+            .then(resp => callback(resp.country.toLowerCase()));
+        }
+        
+        // Initialize International Phone Input
+        document.addEventListener('DOMContentLoaded', function() {
+          const phoneInputField = document.querySelector("#phone");
+          
+          const phoneInput = window.intlTelInput(phoneInputField, {
+            initialCountry: "auto",
+            geoIpLookup: getIp,
+            utilsScript: "//cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+            separateDialCode: true,
+            preferredCountries: ['us', 'gb', 'ca'],
+            hiddenInput: "full",
+          });
+        
+          // Form Validation and Full Number Handling
+          const form = document.querySelector('#phone-form');
+          form.addEventListener('submit', function(event) {
+            if (!phoneInput.isValidNumber()) {
+              event.preventDefault();
+              const errorAlert = document.querySelector('.alert-info');
+              errorAlert.textContent = 'Please enter a valid phone number';
+              errorAlert.style.display = 'block';
+            } else {
+              // Store full international number in hidden input
+              phoneInputField.value = phoneInput.getNumber(intlTelInputUtils.numberFormat.E164);
+              alert(phoneInputField.value); // Optional: show alert with full phone number
+              const errorAlert = document.querySelector('.alert-info');
+              errorAlert.style.display = 'none';
+            }
+          });
+        
+          // Real-time Validation
+          phoneInputField.addEventListener('input', function() {
+            const errorAlert = document.querySelector('.alert-info');
+            if (phoneInput.isValidNumber()) {
+              errorAlert.style.display = 'none';
+            } else {
+              errorAlert.textContent = 'Invalid phone number format';
+              errorAlert.style.display = 'block';
+            }
+          });
+        });
+        </script>
+
+</html>
+
+
+

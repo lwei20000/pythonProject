@@ -1,0 +1,100 @@
+<section class="p-section--hero">
+    <div class="row--50-50">
+        <div class="col">
+            <h1>Contact Us</h1>
+         </div>
+         {% with messages = get_flashed_messages() %}
+         {% if messages %}
+               <ul>
+                  {% for message in messages %}
+                     <li>{{ message }}</li>
+                  {% endfor %}
+               </ul>
+         {% endif %}
+         {% endwith %}
+        <div class="col">
+            <p>Fill in the form below, and a member of our team will be in touch within one working day.</p>
+        </div>
+    </div>
+</section>
+
+<section class="p-section">
+   <form method="POST" id="phone-form" action="{{ url_for('contact') }}" >
+      {{ form.hidden_tag() }}
+      <!-- Project Details Section -->
+      <div class="p-section">
+         <hr class="p-rule is-fixed-width" />
+         <div class="row--50-50">
+            <div class="col">
+               <label for="about-your-project" class="p-heading--2">Tell us about your project</label>
+            </div>
+            <div class="col">
+               {{ form.project_details.label }}
+               {{ form.project_details(rows=5) }}
+            </div>
+         </div>
+      </div>
+   
+      <!-- Advice Request Section -->
+      <div class="p-section">
+         <hr class="p-rule is-fixed-width" />
+         <div class="row--50-50">
+            <div class="col">
+               <label for="advice" class="p-heading--2">What advice are you looking for?</label>
+            </div>
+            <div class="col">
+               {{ form.advice.label }}
+               {{ form.advice(rows=5) }}
+            </div>
+         </div>
+      </div>
+   
+      <!-- Contact Information Section -->
+      <div class="p-section">
+         <hr class="p-rule is-fixed-width" />
+         <div class="row--50-50">
+            <div class="col">
+               <legend class="p-heading--2">How should we get in touch?</legend>
+            </div>
+            <div class="col">
+              
+               {{ form.firstName.label }}
+               {{ form.firstName(size=32) }}
+   
+              
+               {{ form.lastName.label }}
+               {{ form.lastName(size=32) }}
+   
+               {{ form.email.label }}
+               {{ form.email(size=32) }}
+   
+               {{ form.phone.label }}
+              <div> {{ form.phone(size=15) }}</div>
+              <div class="alert alert-info" style="display: none;"></div>
+              <input type="hidden" id="phone" name="phone_number">
+               <label class="p-checkbox">
+                  {{ form.updatesOptIn }}
+                  <span>I agree to receive information about products and services.</span>
+               </label>
+
+               <button type="submit" value="Submit" class="p-button--positive">Submit</button>                     
+            </div>
+         </div>
+      </div>
+   
+      <!-- Recaptcha and Submit -->
+      <div class="p-section">
+         <hr class="p-rule is-fixed-width" />
+         <div class="row--50-50">
+            <div class="col">
+               <label for="recaptcha" class="p-heading--2">Check</label>
+            </div>
+            <div class="col">
+               {{ form.recaptcha }}
+            </div>
+         </div>
+      </div>
+   
+   </form>
+   
+</section>

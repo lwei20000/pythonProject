@@ -1,0 +1,26 @@
+<h2>Subscribe to updates</h2>
+<form  method="POST" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="p-form"  action="{{ url_for('subscribe') }}">
+    <div class="p-form__group">
+    <label for="mce-EMAIL">Email address</label>
+    <input type="email" value="" name="email" placeholder="name@example.com" id="mce-EMAIL"
+        aria-label="Email address" autocomplete="email" required>
+    <input class="u-off-screen" type="hidden" name="b_56dac47c206ba0f58ec25f314_36f7d8394e"
+        tabindex="-1" value="">
+    <p class="p-form-help-text">Know about new releases, features, blog posts,
+        calls&#8209;for&#8209;help&nbsp;and more.
+    </p>
+    </div>
+    <button name="subscribe" type="submit"
+    onclick="dataLayer.push({'event' : 'GAEvent', 'eventCategory' : 'Homepage', 'eventAction' : 'Subscribe', 'eventLabel' : 'Subcribe to Vanilla updates', 'eventValue' : undefined });"
+    class="p-button--positive">Subscribe</button>
+</form>
+
+{% with messages = get_flashed_messages(with_categories=True) %}
+{% if messages %}
+  <ul>
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+{% endwith %}

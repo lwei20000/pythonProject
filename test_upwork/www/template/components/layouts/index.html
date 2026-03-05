@@ -1,0 +1,77 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+{% include 'components/seamless-ai-driven.html' %}
+<div class="p-section">
+   <div class="row">
+      <hr>
+      <div class="col-3 col-start-large-4 col-medium-2">
+         {% include 'components/tech-team.html' %}
+      </div>
+      <div class="col-3 col-medium-2">
+         {% include 'components/researcher.html' %}
+      </div>
+      <div class="col-3 col-medium-2">
+         {% include 'components/student.html' %}
+      </div>
+   </div>
+</div>
+<div class="u-fixed-width">
+   <hr>
+</div>
+{% include 'components/quick-start.html' %}
+<div class="u-fixed-width">
+   <hr>
+</div>
+{% include 'components/features.html' %}
+<div class="u-fixed-width">
+   <hr>
+</div>
+<div class="p-strip">
+   <div class="row">
+      {% include 'components/feature-cards/code-server.html' %}
+      {% include 'components/feature-cards/questdb.html' %}
+      {% include 'components/feature-cards/grafana.html' %}
+      {% include 'components/feature-cards/ai-agent.html' %}
+      {% include 'components/feature-cards/nginx.html' %}
+      {% include 'components/feature-cards/prometheus.html' %}
+      {% include 'components/feature-cards/data-stream-processors.html' %}
+      {% include 'components/feature-cards/ml-processors.html' %}
+      {% include 'components/feature-cards/ska-neural-network.html' %}
+      {% include 'components/feature-cards/jupyterhub.html' %}
+      {% include 'components/feature-cards/langchain.html' %}
+      {% include 'components/feature-cards/openai.html' %}
+   
+   </div>
+</div>
+<div class="u-fixed-width">
+   <hr>
+</div>
+{% include 'components/applications.html' %}
+<div class="u-fixed-width">
+   <hr>
+</div>
+{% include 'components/pricing.html' %}
+{% include 'components/plan.html' %}
+<div class="u-fixed-width">
+   <hr>
+</div>
+{% include 'components/faq.html' %}
+
+
+<div class="u-fixed-width">
+   <hr>
+</div>
+<div class="p-strip">
+   <div class="row">
+      <div class="col-3">
+         {% include 'components/contribute.html' %}
+      </div>
+      <div class="col-3">
+         {% include 'components/get-involved.html' %}
+      </div>
+      <div class="col-6">
+         {% include 'components/subscribe-to-updates.html' %}
+      </div>
+   </div>
+</div>
+{% endblock %}
